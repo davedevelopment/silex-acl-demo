@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <h1>Message Board</h1>
+        {% for message in messages %}
+            <blockquote>
+                <p>{{ message.content }}</p>
+                <small>{{ message.username }}</small>
+            </blockquote>
+
+            {% if is_granted('DELETE', message) %}
+                <form action="/{{ message.id }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="submit" value="DELETE">
+                </form>
+            {% endif %}
+            <hr>
+        {% endfor %}
+
+        <form action="/" method="POST">
+            <textarea name="content"></textarea>
+            <br>
+            <input type="submit" value="Post">
+        </form>
+    </body>
+</html>
